@@ -275,9 +275,24 @@ class _MyHomePageState extends State<MyHomePage> {
                ],
              ),
 
-             SfRadialGauge(
+             // create a container and set height to 200 and inter child to SfRadialGauge
+              Container(
+
+
+                height: 250,
+                // set container background color
+                color: Color(0xFF4E7711),
+                margin: const EdgeInsets.symmetric(vertical: 20.0),
+
+
+
+                child: SfRadialGauge(
+
+
+
 
                enableLoadingAnimation: true, animationDuration: 4500,
+
                axes:<RadialAxis>[
 
                  RadialAxis(
@@ -291,41 +306,98 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
                      ranges: <GaugeRange>[
-                       GaugeRange(startValue: 0, endValue: 33,
+                       GaugeRange(startValue: 12, endValue: 35,
                          color: Color(0xFF21A6F3),
                            label: 'Underweight',
-                         sizeUnit: GaugeSizeUnit.factor,
-                         labelStyle: GaugeTextStyle(
+                           sizeUnit: GaugeSizeUnit.factor,
+                         labelStyle: const GaugeTextStyle(
                              fontFamily: 'Times',
-                             fontSize:  20 ,
-                             color: Colors.white),
-                         startWidth: 0.65, endWidth: 0.65
-                     ),GaugeRange(startValue: 33, endValue: 66,
-                       color:Color(0xFF40BC64), label: 'Normal',
-                       labelStyle: GaugeTextStyle(fontFamily: 'Times', fontSize:   20,color: Colors.white),
-                       startWidth: 0.65, endWidth: 0.65, sizeUnit: GaugeSizeUnit.factor,
-                     ),
-                       GaugeRange(startValue: 66, endValue: 99,
-                         color:Color(0xFFFC5449), label: 'Overweight',
-                         labelStyle: GaugeTextStyle(fontFamily: 'Times', fontSize:   20,color: Colors.white),
+                             fontSize:  15 ,
+                             color: Colors.white,
+
+
+                         ),
+                         startWidth: 0.4, endWidth: 0.4
+                     ),GaugeRange(
+                         startValue: 35,
+                         endValue: 60,
+                       color:Color(0xFF40BC64),
+                         label: 'Normal',
+                       labelStyle: const GaugeTextStyle(
+                           fontFamily: 'Times',
+                           fontSize:   15,
+                           color: Colors.white),
+                       startWidth: 0.4,
+                         endWidth: 0.4,
                          sizeUnit: GaugeSizeUnit.factor,
-                         startWidth: 0.65, endWidth: 0.65,
+                     ),
+                       GaugeRange(
+                         startValue: 60,
+                         endValue: 85,
+                         color:Color(0xFFFC5449),
+                         label: 'Overweight',
+                         labelStyle: const GaugeTextStyle(
+                             fontFamily: 'Times',
+                             fontSize:   15,
+                             color: Colors.white),
+
+
+
+
+                         sizeUnit: GaugeSizeUnit.factor,
+                         startWidth: 0.4, endWidth: 0.4,
                        ),
 
                      ],
 
 
-                     pointers: <GaugePointer>[NeedlePointer(value:20, )],
-                     annotations: <GaugeAnnotation>[
-                       GaugeAnnotation(widget: Container(child:
-                       Text('20.0',style: TextStyle(fontSize: 25,fontWeight:FontWeight.bold))),
-                           angle: 90,positionFactor: 0.5)]
+                     pointers: const <GaugePointer>[
+                       MarkerPointer(
+                         // change pointer color
+                            color: Colors.white,
+                           value: 20,
+                           markerHeight: 15,
+                           markerWidth: 18,
+
+                         // change pointer side directio
+                             markerType: MarkerType.triangle,
+                           enableAnimation: true,
+                           animationDuration: 4500,
+                            markerOffset: 38,
+
+
+
+                       )
+                     ],
+                     annotations: const <GaugeAnnotation>[
+                       GaugeAnnotation(
+                           axisValue: 50,
+                           positionFactor: 0.1,
+                           widget: Text('50.0', style:
+                           TextStyle(
+                               fontWeight: FontWeight.bold,
+                               fontSize: 20),
+                           )
+
+
+                       )
+
+
+
+
+                     ]
 
 
 
                  )
+
                ],
+
              ),
+
+              ),
+
+
 
 
              // Horizontal divider
@@ -335,158 +407,134 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
 
 
-              const Column(
-                children: [
 
+             Column(
+               children: [
+                 SizedBox(height: 10.0,),
+                 Container(
+                   color: Colors.white,
+                   child: const Padding(
+                     padding: EdgeInsets.symmetric(horizontal: 20.0),
+                     child: Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                       children: [
+                         Text("Very Severely Underweight"),
+                         Text("<= 15.9"),
+                       ],
+                     ),
+                   ),
+                 ),
 
-                  SizedBox(height: 10.0,),
+                 Container(
+                   color: Colors.white,
+                   child: const Padding(
+                     padding: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
+                     child: Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                       children: [
+                         Text("Severely Underweight"),
+                         Text("16.0 - 16.9"),
+                       ],
+                     ),
+                   ),
+                 ),
 
+                 Container(
+                   color: Colors.white,
+                   child: const Padding(
+                     padding: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
+                     child: Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                       children: [
+                         Text("Underweight"),
+                         Text("16.0 - 18.4"),
+                       ],
+                     ),
+                   ),
+                 ),
 
-                  Row(
+                 Container(
+                   color: Colors.white,
+                   child: const Padding(
+                     padding: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
+                     child: Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                       children: [
+                         Text("Normal"),
+                         Text("18.5 - 24.9"),
+                       ],
+                     ),
+                   ),
+                 ),
 
-
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-
-
-                      Padding(
-                        padding: EdgeInsets.only(left: 20.0),
-                        child: Text("Very Severely Underweight"),
+                  Container(
+                    color: Colors.white,
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Overweight"),
+                          Text("25.0 - 29.9"),
+                        ],
                       ),
+                    ),
+                  ),
 
-                      Padding(
-                        padding: EdgeInsets.only(right: 20.0),
-                        child: Text("<= 15.9"),
+                  Container(
+                    color: Colors.white,
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Obese Class I (Moderately obese)"),
+                          Text("30.0 - 34.9"),
+                        ],
                       ),
+                    ),
+                  ),
 
+                  Container(
+                    color: Colors.white,
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Obese Class II (Severely obese)"),
+                          Text("35.0 - 39.9"),
+                        ],
+                      ),
+                    ),
+                  ),
 
-
-
-                    ],
+                  Container(
+                    color: Colors.white,
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.0,vertical: 5.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Obese Class III (Very severely obese)"),
+                          Text(">= 40.0"),
+                        ],
+                      ),
+                    ),
                   ),
 
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
 
-                      Padding(
-                        padding: EdgeInsets.only(left: 20.0),
-                        child: Text("Underweight"),
-                      ),
-
-                      Padding(
-                          padding: EdgeInsets.only(right: 20.0),
-                          child:  Text("16.0 - 18.4")
-                      ),
-
-
-
-                    ],
-                  ),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-
-                      Padding(
-                        padding: EdgeInsets.only(left: 20.0),
-                        child: Text("Normal"),
-                      ),
-
-                      Padding(
-                          padding: EdgeInsets.only(right: 20.0),
-                          child:  Text("18.5 - 24.9")
-                      ),
-
-
-
-                    ],
-                  ),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-
-                      Padding(
-                        padding: EdgeInsets.only(left: 20.0),
-                        child: Text("Overweight"),
-                      ),
-
-                      Padding(
-                          padding: EdgeInsets.only(right: 20.0),
-                          child:  Text("25.0 - 29.9")
-                      ),
-
-
-
-                    ],
-                  ),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-
-                      Padding(
-                        padding: EdgeInsets.only(left: 20.0),
-                        child: Text("Obese Class I (Moderately obese)"),
-                      ),
-
-                      Padding(
-                          padding: EdgeInsets.only(right: 20.0),
-                          child:  Text("30.0 - 34.9")
-                      ),
-
-
-
-                    ],
-                  ),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-
-                      Padding(
-                        padding: EdgeInsets.only(left: 20.0),
-                        child: Text("Obese Class II (Severely obese)"),
-                      ),
-
-                      Padding(
-                          padding: EdgeInsets.only(right: 20.0),
-                          child:  Text("35.0 - 39.9")
-                      ),
-
-
-                    ],
-                  ),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-
-                      Padding(
-                        padding: EdgeInsets.only(left: 20.0),
-                        child: Text("Obese Class III (Very severely obese)"),
-                      ),
-
-                      Padding(
-                          padding: EdgeInsets.only(right: 20.0),
-                          child:  Text(">= 40.0")
-                      ),
-
-
-
-                    ],
-                  ),
-                ],
-              ),
+               ],
+             ),
 
 
 
 
 
 
-              ElevatedButton(
+             /*
+             ElevatedButton(
                 onPressed: (){
                   var wt = wtController.text.toString();
                   var ft = ftController.text.toString();
@@ -519,6 +567,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
                 child: Text('Calculate'),),
               Text(result)
+
+              */
              
 
              
