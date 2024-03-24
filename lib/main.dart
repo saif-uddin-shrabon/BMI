@@ -4,7 +4,6 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 void main() {
@@ -102,7 +101,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
              Listener(
-
                child: Column(
                  children: [
                    Row(
@@ -327,126 +325,9 @@ class _MyHomePageState extends State<MyHomePage> {
              ),
 
 
-             Stack(
-               children: [
 
-
-
-
-
-                 Positioned(
-
-                    child: Divider(
-
-                        color: Colors.black,
-                        thickness: 1.0,
-                      ),
-                  ),
-
-
-
-                 Positioned(
-
-                   child:SfRadialGauge(
-                   enableLoadingAnimation: true,
-                   animationDuration: 4500,
-                   axes: <RadialAxis>[
-                     RadialAxis(
-                       showLabels: false,
-                       showAxisLine: false,
-                       showTicks: false,
-                       minimum: 0,
-                       maximum: 99,
-                       startAngle: 150,
-                       endAngle: 35,
-                       ranges: <GaugeRange>[
-                         GaugeRange(
-                           startValue: 12,
-                           endValue: 35,
-                           color: Color(0xFF21A6F3),
-                           label: 'Underweight',
-                           sizeUnit: GaugeSizeUnit.factor,
-                           labelStyle: const GaugeTextStyle(
-                             fontFamily: 'Times',
-                             fontSize: 15,
-                             color: Colors.white,
-                           ),
-                           startWidth: 0.4,
-                           endWidth: 0.4,
-                         ),
-                         GaugeRange(
-                           startValue: 35,
-                           endValue: 60,
-                           color: Color(0xFF40BC64),
-                           label: 'Normal',
-                           labelStyle: const GaugeTextStyle(
-                             fontFamily: 'Times',
-                             fontSize: 15,
-                             color: Colors.white,
-                           ),
-                           startWidth: 0.4,
-                           endWidth: 0.4,
-                           sizeUnit: GaugeSizeUnit.factor,
-                         ),
-                         GaugeRange(
-                           startValue: 60,
-                           endValue: 85,
-                           color: Color(0xFFFC5449),
-                           label: 'Overweight',
-                           labelStyle: const GaugeTextStyle(
-                             fontFamily: 'Times',
-                             fontSize: 15,
-                             color: Colors.white,
-                           ),
-                           sizeUnit: GaugeSizeUnit.factor,
-                           startWidth: 0.4,
-                           endWidth: 0.4,
-                         ),
-                       ],
-                       pointers:  <GaugePointer>[
-                         MarkerPointer(
-                           color: Colors.white,
-                           // add result + 30 to show the pointer on the gauge or null
-                           // value:  double.parse(result) + 30 ?? 0,
-                           value: rangeValue ?? 0,
-
-
-                           markerHeight: 15,
-                           markerWidth: 18,
-                           markerType: MarkerType.triangle,
-                           enableAnimation: true,
-                           animationDuration: 4500,
-                           markerOffset: 38,
-                         )
-                       ],
-                       annotations: <GaugeAnnotation>[
-                         GaugeAnnotation(
-                           axisValue: 50,
-                           positionFactor: 0.1,
-                           widget: Text(
-                             result,
-                             style: TextStyle(
-                               fontWeight: FontWeight.bold,
-                               fontSize: 20,
-                             ),
-                           ),
-                         ),
-                       ],
-                     ),
-                   ],
-                 ), )
-
-
-               ],
-             ),
-
-
-/*
              Container(
-
                height: 250,
-               color: Colors.blue,
-
                margin: const EdgeInsets.symmetric(vertical: 20.0),
                child: SfRadialGauge(
                  enableLoadingAnimation: true,
@@ -537,11 +418,11 @@ class _MyHomePageState extends State<MyHomePage> {
                  ],
                ),
              ),
-    */
-             // Divider(
-             //   color: Colors.black,
-             //   thickness: 1.0,
-             // ),
+
+             Divider(
+               color: Colors.black,
+               thickness: 1.0,
+             ),
 
 
              Container(
@@ -817,22 +698,40 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
   getBMICategory() {
-    if (bmi < 16.0) {
-     VSUColor = Colors.blue;
+    print("colorbmi: $bmi");
+    if (bmi <= 15.9) {
+      setState(() {
+        VSUColor = Colors.blue;
+      });
+
     } else if (bmi >= 16.0 && bmi <= 16.9) {
-      return 'Severely Underweight';
+      setState(() {
+        SUColor = Colors.blue;
+      });
     } else if (bmi >= 17.0 && bmi <= 18.4) {
-      return 'Underweight';
+      setState(() {
+        UColor = Colors.blue;
+      });
     } else if (bmi >= 18.5 && bmi <= 24.9) {
-      return 'Normal';
+      setState(() {
+        NColor = Colors.green;
+      });
     } else if (bmi >= 25.0 && bmi <= 29.9) {
-      return 'Overweight';
+      setState(() {
+        OWColor = Colors.red;
+      });
     } else if (bmi >= 30.0 && bmi <= 34.9) {
-      return 'Obese Class I (Moderately obese)';
+      setState(() {
+        OIColor = Colors.red;
+      });
     } else if (bmi >= 35.0 && bmi <= 39.9) {
-      return 'Obese Class II (Severely obese)';
+      setState(() {
+        OIICOLOR = Colors.red;
+      });
     } else {
-      return 'Obese Class III (Very severely obese)';
+      setState(() {
+        OIIIColor = Colors.red;
+      });
     }
   }
 
