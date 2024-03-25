@@ -3,8 +3,11 @@ import 'dart:ui';
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,7 +29,13 @@ class MyApp extends StatelessWidget {
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
+
+
+
 }
+
+
+
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -54,6 +63,11 @@ class _MyHomePageState extends State<MyHomePage> {
   String? _slectedVal = "ft";
   final _listOfWItem = ["kg","lb","st"];
   String? _selectedWval= "kg";
+  // state changeble string
+  String weightRange = "---";
+  String title = "Normal";
+  String titleValue = "Normal";
+  bool isGone = true;
 
   Color backgroundColor = Colors.black;
 
@@ -65,6 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Color OIColor = Colors.black;
   Color OIICOLOR = Colors.black;
   Color OIIIColor = Colors.black;
+  Color weightRangeColor = Colors.black;
 
 
   // Define variables to store user input and BMI result
@@ -80,18 +95,19 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
+
+   backgroundColor: Color(0xFFFBFDF8),
       appBar: AppBar(
+
 
         backgroundColor: Color(0xFFF0F5EF),
 
         title: Text('BMI Calculator'),
       ),
-      body: Container(
+      body: SingleChildScrollView(
 
-        // backgroud color
-        color: Color(0xFFFBFDF8),
-
-
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5.0),
           child: Column(
 
 
@@ -133,6 +149,8 @@ class _MyHomePageState extends State<MyHomePage> {
                          ),
                        ),
 
+
+                       // Feet container
 
                        // Feet container
 
@@ -198,6 +216,7 @@ class _MyHomePageState extends State<MyHomePage> {
                            ],
                          ),
                        ),
+
 
 
                        Container(
@@ -326,99 +345,135 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 
-             Container(
-               height: 250,
-               margin: const EdgeInsets.symmetric(vertical: 20.0),
-               child: SfRadialGauge(
-                 enableLoadingAnimation: true,
-                 animationDuration: 4500,
-                 axes: <RadialAxis>[
-                   RadialAxis(
-                     showLabels: false,
-                     showAxisLine: false,
-                     showTicks: false,
-                     minimum: 0,
-                     maximum: 99,
-                     startAngle: 150,
-                     endAngle: 35,
-                     ranges: <GaugeRange>[
-                       GaugeRange(
-                         startValue: 12,
-                         endValue: 35,
-                         color: Color(0xFF21A6F3),
-                         label: 'Underweight',
-                         sizeUnit: GaugeSizeUnit.factor,
-                         labelStyle: const GaugeTextStyle(
-                           fontFamily: 'Times',
-                           fontSize: 15,
-                           color: Colors.white,
-                         ),
-                         startWidth: 0.4,
-                         endWidth: 0.4,
-                       ),
-                       GaugeRange(
-                         startValue: 35,
-                         endValue: 60,
-                         color: Color(0xFF40BC64),
-                         label: 'Normal',
-                         labelStyle: const GaugeTextStyle(
-                           fontFamily: 'Times',
-                           fontSize: 15,
-                           color: Colors.white,
-                         ),
-                         startWidth: 0.4,
-                         endWidth: 0.4,
-                         sizeUnit: GaugeSizeUnit.factor,
-                       ),
-                       GaugeRange(
-                         startValue: 60,
-                         endValue: 85,
-                         color: Color(0xFFFC5449),
-                         label: 'Overweight',
-                         labelStyle: const GaugeTextStyle(
-                           fontFamily: 'Times',
-                           fontSize: 15,
-                           color: Colors.white,
-                         ),
-                         sizeUnit: GaugeSizeUnit.factor,
-                         startWidth: 0.4,
-                         endWidth: 0.4,
-                       ),
-                     ],
-                     pointers:  <GaugePointer>[
-                       MarkerPointer(
+             SfRadialGauge(
+
+               enableLoadingAnimation: true,
+               animationDuration: 4500,
+               axes: <RadialAxis>[
+                 RadialAxis(
+                   showLabels: false,
+                   showAxisLine: false,
+                   showTicks: false,
+                   minimum: 0,
+                   maximum: 99,
+                   startAngle: 150,
+                   endAngle: 35,
+                   ranges: <GaugeRange>[
+                     GaugeRange(
+                       startValue: 12,
+                       endValue: 35,
+                       color: Color(0xFF21A6F3),
+                       label: 'Underweight',
+                       sizeUnit: GaugeSizeUnit.factor,
+                       labelStyle: const GaugeTextStyle(
+                         fontFamily: 'Times',
+                         fontSize: 15,
                          color: Colors.white,
-                         // add result + 30 to show the pointer on the gauge or null
-                         // value:  double.parse(result) + 30 ?? 0,
-                         value: rangeValue ?? 0,
+                       ),
+                       startWidth: 0.4,
+                       endWidth: 0.4,
+                     ),
+                     GaugeRange(
+                       startValue: 35,
+                       endValue: 60,
+                       color: Color(0xFF40BC64),
+                       label: 'Normal',
+                       labelStyle: const GaugeTextStyle(
+                         fontFamily: 'Times',
+                         fontSize: 15,
+                         color: Colors.white,
+                       ),
+                       startWidth: 0.4,
+                       endWidth: 0.4,
+                       sizeUnit: GaugeSizeUnit.factor,
+                     ),
+                     GaugeRange(
+                       startValue: 60,
+                       endValue: 85,
+                       color: Color(0xFFFC5449),
+                       label: 'Overweight',
+                       labelStyle: const GaugeTextStyle(
+                         fontFamily: 'Times',
+                         fontSize: 15,
+                         color: Colors.white,
+                       ),
+                       sizeUnit: GaugeSizeUnit.factor,
+                       startWidth: 0.4,
+                       endWidth: 0.4,
+                     ),
+                   ],
+                   pointers:  <GaugePointer>[
+                     MarkerPointer(
+                       color: Colors.white,
+                       // add result + 30 to show the pointer on the gauge or null
+                       // value:  double.parse(result) + 30 ?? 0,
+                       value: rangeValue ?? 0,
 
 
-                         markerHeight: 15,
-                         markerWidth: 18,
-                         markerType: MarkerType.triangle,
-                         enableAnimation: true,
-                         animationDuration: 4500,
-                         markerOffset: 38,
-                       )
-                     ],
-                     annotations: <GaugeAnnotation>[
-                       GaugeAnnotation(
-                         axisValue: 50,
-                         positionFactor: 0.1,
-                         widget: Text(
-                         result,
-                           style: TextStyle(
-                             fontWeight: FontWeight.bold,
-                             fontSize: 20,
-                           ),
+                       markerHeight: 15,
+                       markerWidth: 18,
+                       markerType: MarkerType.triangle,
+                       enableAnimation: true,
+                       animationDuration: 4500,
+                       markerOffset: 58,
+                     )
+                   ],
+                   annotations: <GaugeAnnotation>[
+                     GaugeAnnotation(
+                       axisValue: 50,
+                       positionFactor: 0.1,
+                       widget: Text(
+                       result,
+                         style: TextStyle(
+                           fontWeight: FontWeight.bold,
+                           fontSize: 20,
                          ),
                        ),
-                     ],
+                     ),
+                   ],
+                 ),
+               ],
+             ),
+
+
+             Container(
+
+
+
+               child:  Column(
+                 children: [
+                   Container(
+                     color: Colors.white,
+                     child:  Padding(
+                       padding: EdgeInsets.symmetric(horizontal: 20.0),
+                       child: Row(
+                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                         children: [
+                           Text(
+                               title,
+                                style: TextStyle(
+                                  color: weightRangeColor,
+
+                                )
+                           ),
+
+                           title == 'Normal'
+                               ? Icon(Icons.done_outline_rounded, color: Colors.green)
+                               : Text(
+                               titleValue ?? "---",
+                                   style: TextStyle(
+                                     color: weightRangeColor,
+                                   )
+                           ),
+
+                         ],
+                       ),
+                     ),
                    ),
                  ],
                ),
-             ),
 
+             ),
              Divider(
                color: Colors.black,
                thickness: 1.0,
@@ -606,18 +661,22 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
               Container(
+                // padding bottom 20
+                padding: EdgeInsets.only(bottom: 20.0),
+
+
                 child:  Column(
                   children: [
                   SizedBox(height: 10.0,),
                     Container(
                       color: Colors.white,
-                      child: const Padding(
+                      child:  Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text("Normal Weight"),
-                          Text("---"),
+                          Text(weightRange  ?? "---"),
                       ],
                       ),
                       ),
@@ -627,10 +686,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
               ),
 
- 
+
            ],
           ),
         ),
+      ),
 
 
     );
@@ -675,6 +735,70 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 
+  void WeightRangeBasedOnBmi(double min , double max){
+
+     var feetInmeeter = heightFtValue * 0.3048;
+      var inchesInmeeter = heightInValue * 0.0254;
+      var totalHighetInMeeter = feetInmeeter + inchesInmeeter;
+
+      //get one decimal value
+      totalHighetInMeeter = double.parse(totalHighetInMeeter.toStringAsFixed(1));
+
+    var minimumWeight = double.parse((min * (totalHighetInMeeter * totalHighetInMeeter)).toStringAsFixed(1));
+     var  maximumWeight = double.parse((max * (totalHighetInMeeter * totalHighetInMeeter)).toStringAsFixed(1));
+
+     if(weightValue < minimumWeight){
+       isGone = true;
+        var diff = minimumWeight - weightValue;
+        titleValue = "-${double.parse(diff.toStringAsFixed(1))} kg";
+     }else if(weightValue > maximumWeight){
+       isGone = true;
+       var diff = weightValue - maximumWeight;
+        titleValue = "+${double.parse(diff.toStringAsFixed(1))} kg";
+
+     }else{
+      //right sign
+       isGone = false;
+     }
+
+      setState(() {
+        weightRange = "$minimumWeight - $maximumWeight kg";
+      });
+
+
+
+
+  }
+
+
+  void selectedIcon(double heightInInches) {
+    if(isMaleSelected ){
+      if(ageValue >= 18 && ageValue < 65 && heightInInches >= 5.5 && heightInInches <= 5.9){
+        var normalBmiRange ="18.5 - 25.9";
+        WeightRangeBasedOnBmi(18.5, 25.9);
+      }else if(ageValue >= 18 && ageValue < 65 && heightInInches >= 6.0 && heightInInches < 6){
+        var normalBmiRange ="20.0 - 27.0";
+        WeightRangeBasedOnBmi(20.0, 27.0);
+      }else if(ageValue >= 18 && ageValue < 65 ) {
+        var normalBmiRange = "21.0 - 24.9";
+        WeightRangeBasedOnBmi(21.0, 24.9);
+      }
+    }
+    else if(isFemaleSelected){
+
+      if(ageValue >= 18 && ageValue < 65 && heightInInches >= 5.5 && heightInInches <= 5.9){
+        var normalBmiRange ="18.5 - 25.9";
+        WeightRangeBasedOnBmi(18.5, 25.9);
+      }else if(ageValue >= 18 && ageValue < 65 && heightInInches >= 6.0 && heightInInches < 6){
+        var normalBmiRange ="20.0 - 27.0";
+        WeightRangeBasedOnBmi(20.0, 27.0);
+      }else if(ageValue >= 18 && ageValue < 65 ) {
+        var normalBmiRange = "21.0 - 24.9";
+        WeightRangeBasedOnBmi(21.0, 24.9);
+      }
+
+    }
+  }
 
 
 
@@ -686,11 +810,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 
+
+
+
+
     // state update
     setState(() {
       result = bmi.toStringAsFixed(1);
       rangeValue = (bmi + 30);
       getBMICategory();
+
+      selectedIcon(heightInInches);
+
 
     });
   }
@@ -702,35 +833,119 @@ class _MyHomePageState extends State<MyHomePage> {
     if (bmi <= 15.9) {
       setState(() {
         VSUColor = Colors.blue;
+        weightRangeColor = Colors.blue;
+        title = "Very Severely Underweight";
+        // all are black
+        SUColor = Colors.black;
+        UColor = Colors.black;
+        NColor = Colors.black;
+        OWColor = Colors.black;
+        OIColor = Colors.black;
+        OIICOLOR = Colors.black;
+        OIIIColor = Colors.black;
+
       });
 
     } else if (bmi >= 16.0 && bmi <= 16.9) {
       setState(() {
         SUColor = Colors.blue;
+        weightRangeColor = Colors.blue;
+        title = "Severely Underweight";
+        VSUColor = Colors.black;
+        UColor = Colors.black;
+        NColor = Colors.black;
+        OWColor = Colors.black;
+        OIColor = Colors.black;
+        OIICOLOR = Colors.black;
+        OIIIColor = Colors.black;
       });
     } else if (bmi >= 17.0 && bmi <= 18.4) {
       setState(() {
         UColor = Colors.blue;
+        weightRangeColor = Colors.blue;
+        title = "Underweight";
+        VSUColor = Colors.black;
+        // all are black
+        SUColor = Colors.black;
+        NColor = Colors.black;
+        OWColor = Colors.black;
+        OIColor = Colors.black;
+        OIICOLOR = Colors.black;
+        OIIIColor = Colors.black;
       });
     } else if (bmi >= 18.5 && bmi <= 24.9) {
       setState(() {
         NColor = Colors.green;
+        weightRangeColor = Colors.green;
+        title = "Normal";
+
+        VSUColor = Colors.black;
+        // all are black
+        SUColor = Colors.black;
+        UColor = Colors.black;
+        OWColor = Colors.black;
+        OIColor = Colors.black;
+        OIICOLOR = Colors.black;
+        OIIIColor = Colors.black;
       });
     } else if (bmi >= 25.0 && bmi <= 29.9) {
       setState(() {
         OWColor = Colors.red;
+        weightRangeColor = Colors.red;
+        title = "Overweight";
+
+        VSUColor = Colors.black;
+        SUColor = Colors.black;
+        UColor = Colors.black;
+        NColor = Colors.black;
+        OIColor = Colors.black;
+        OIICOLOR = Colors.black;
+        OIIIColor = Colors.black;
       });
     } else if (bmi >= 30.0 && bmi <= 34.9) {
       setState(() {
         OIColor = Colors.red;
+        weightRangeColor = Colors.red;
+        title = "Obese Class I (Moderately obese)";
+        VSUColor = Colors.black;
+        // all are black
+        SUColor = Colors.black;
+        UColor = Colors.black;
+        NColor = Colors.black;
+        OWColor = Colors.black;
+        OIICOLOR = Colors.black;
+        OIIIColor = Colors.black;
       });
     } else if (bmi >= 35.0 && bmi <= 39.9) {
       setState(() {
         OIICOLOR = Colors.red;
+        weightRangeColor = Colors.red;
+        title = "Obese Class II (Severely obese)";
+
+        VSUColor = Colors.black;
+        // all are black
+        SUColor = Colors.black;
+        UColor = Colors.black;
+        NColor = Colors.black;
+        OWColor = Colors.black;
+        OIColor = Colors.black;
+        OIIIColor = Colors.black;
       });
     } else {
       setState(() {
         OIIIColor = Colors.red;
+        weightRangeColor = Colors.red;
+        title = "Obese Class III (Very severely obese)";
+
+        VSUColor = Colors.black;
+        // all are black
+        SUColor = Colors.black;
+        UColor = Colors.black;
+        NColor = Colors.black;
+        OWColor = Colors.black;
+        OIColor = Colors.black;
+        OIICOLOR = Colors.black;
+
       });
     }
   }
