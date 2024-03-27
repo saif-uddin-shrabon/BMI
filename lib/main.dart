@@ -55,6 +55,9 @@ class _MyHomePageState extends State<MyHomePage> {
   var ftController = TextEditingController();
   var inController = TextEditingController();
   var age = TextEditingController();
+  var heightInCm = TextEditingController();
+  var stController = TextEditingController();
+  var lbController = TextEditingController();
 
   bool isMaleSelected = false;
   bool isFemaleSelected = false;
@@ -68,6 +71,11 @@ class _MyHomePageState extends State<MyHomePage> {
   String title = "Normal";
   String titleValue = "Normal";
   bool isGone = true;
+  var totalHighetInMeeter = 0.0;
+
+  var feetInmeeter = 0.0;
+  var inchesInmeeter = 0.0;
+
 
   Color backgroundColor = Colors.black;
 
@@ -90,6 +98,10 @@ class _MyHomePageState extends State<MyHomePage> {
   double heightInValue = 0.0;
   double bmi = 0.0;
   double rangeValue = 0.0;
+  double heightInCmValue = 0.0;
+  double st = 0.0;
+  double lb = 0.0;
+  double heightInInches = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -150,105 +162,117 @@ class _MyHomePageState extends State<MyHomePage> {
                        ),
 
 
-                       // Feet container
 
-                       // Feet container
 
-                       Container(
-                         width: 50,
-                         height: 40,
-                         child: Column(
+                       _slectedVal == "ft" ? Row(
+                         children: [
+                           
+                           // incich container
+                           Container(
+                             width: 50,
+                             height: 40,
+                             // margin: EdgeInsets.only(left: 10.0),
+                             margin: EdgeInsets.only(left: 16.0),
+         child:   Column(
 
-                           children: [
-                             Container(
-                               height: 14.0,
-                               alignment: Alignment.centerRight,
-                               child: Text(
-                                 "'",
-                                 style: TextStyle(fontSize: 24.0),
-                               ),
+                               children: [
+
+                                 Container(
+                                   height: 14.0,
+                                   alignment: Alignment.centerRight,
+                                   child: Text(
+                                     "''",
+                                     style: TextStyle(fontSize: 24.0),
+                                   ),
+                                 ),
+
+
+
+                                 Expanded(
+                                   child: TextField(
+                                     controller: inController,
+
+
+                                     keyboardType: TextInputType.number,
+                                     onChanged: (value) {
+                                       
+                                       checkFiled();
+                                     },
+                                   ),
+                                 ),
+
+                               ],
                              ),
-                             Expanded(
-                               child: TextField(
-                                 controller: ftController,
-                                 keyboardType: TextInputType.number,
-                                 onChanged: (value) {
-                                   checkFiled();
-                                 },
-                               ),
-                             ),
-                           ],
-                         ),
-                       ),
+                           ),
 
-                       // incich container
+
+                         ],
+                       ) :
                        Container(
-                         width: 50,
-                         height: 40,
+                         width: 70,
+                         height: 60,
 
                          child:   Column(
 
+
                            children: [
 
-                             Container(
-                               height: 14.0,
-                               alignment: Alignment.centerRight,
-                               child: Text(
-                                 "''",
-                                 style: TextStyle(fontSize: 24.0),
+                             TextField(
+                               controller: heightInCm,
+
+                               decoration: const InputDecoration(
+                                 labelText: "Height",
+                                 labelStyle: TextStyle(
+                                   fontSize: 12,
+
+                                 ) ,
+                                 contentPadding: EdgeInsets.symmetric(horizontal: 12.0),
                                ),
-                             ),
-
-
-
-                             Expanded(
-                               child: TextField(
-                                 controller: inController,
-
-
-                                 keyboardType: TextInputType.number,
-                                 onChanged: (value) {
-                                   checkFiled();
-                                 },
-                               ),
+                               keyboardType: TextInputType.number,
+                               onChanged: (value) {
+                                 checkFiled();
+                               },
                              ),
 
                            ],
                          ),
-                       ),
+                       ) ,
 
 
-
+                       // select ft or cm
                        Container(
-                           width: 50,
-                           height: 60,
+                         width: 50,
+                         height: 60,
+                         child: DropdownButtonFormField(
+                           value: _slectedVal,
+                           items: _listItem.map(
+                                 (e) => DropdownMenuItem(child: Text(e), value: e),
+                           ).toList(),
+                           onChanged: (val) {
+                             setState(() {
+                               _slectedVal = val as String;
+                               if(_slectedVal == "ft"){
+                                 heightInCm.clear();
 
-
-                           child:  DropdownButtonFormField(
-                               value: _slectedVal,
-                               items: _listItem.map(
-                                       (e) => DropdownMenuItem(child: Text(e),value: e,)
-
-                               ).toList(),
-                               onChanged: (val){
-                                 setState(() {
-                                   _slectedVal = val as String;
-                                 });
+                                }else{
+                                 ftController.clear();
+                                 inController.clear();
                                }
-                           )
-
-
-
+                             });
+                           },
+                         ),
                        ),
 
                      ],
                    ),
 
 
+
+
+
                    Row(
                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                      children: [
-
                        Container(
                          width: 60,
                          height: 40,
@@ -278,67 +302,142 @@ class _MyHomePageState extends State<MyHomePage> {
                          ),
                        ),
 
+                       // Conditionally render based on _selectedWval value
+                       if (_selectedWval == "kg")
+                         Container(
+                           width: 70,
+                           height: 60,
+                           child: Column(
+                             children: [
+                               TextField(
+                                 controller: wtController,
+                                 decoration: const InputDecoration(
+                                   labelText: "Weight",
+                                   labelStyle: TextStyle(
+                                     fontSize: 12,
+                                   ),
+                                   contentPadding: EdgeInsets.symmetric(horizontal: 12.0),
+                                 ),
+                                 keyboardType: TextInputType.number,
+                                 onChanged: (value) {
+                                   checkFiled();
+                                 },
+                               ),
+                             ],
+                           ),
+                         )
+                       else if (_selectedWval == "lb")
+                         Container(
+                           width: 70,
+                           height: 60,
+                           child: Column(
+                             children: [
+                               TextField(
+                                 controller: wtController,
+                                 decoration: const InputDecoration(
+                                   labelText: "Weight",
+                                   labelStyle: TextStyle(
+                                     fontSize: 12,
+                                   ),
+                                   contentPadding: EdgeInsets.symmetric(horizontal: 12.0),
+                                 ),
+                                 keyboardType: TextInputType.number,
+                                 onChanged: (value) {
+                                   checkFiled();
+                                 },
+                               ),
+                             ],
+                           ),
+                         )
+                       else if (_selectedWval == "st")
+                           Row(
+                             children: [
+                               Container(
+                                 width: 50,
+                                 height: 60,
+
+                                 child:   Column(
 
 
-                       // Feet container
+                                   children: [
+
+                                     TextField(
+                                       controller: stController,
+                                       decoration: const InputDecoration(
+                                         labelText: "st",
+                                         contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
+                                       ),
+                                       keyboardType: TextInputType.number,
+                                       // call checkFiled method when text field is changed
+                                       onChanged: (value) {
+                                         checkFiled();
+                                       },
+                                     ),
+
+                                   ],
+                                 ),
+                               ),
+
+                               Container(
+                                 width: 50,
+                                 height: 60,
+                                 margin: EdgeInsets.only(left: 15.0),
+
+                                 child:   Column(
+
+
+                                   children: [
+
+                                     TextField(
+                                       controller: lbController,
+                                       decoration: const InputDecoration(
+                                         labelText: "lb",
+                                         contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
+                                       ),
+                                       keyboardType: TextInputType.number,
+                                       // call checkFiled method when text field is changed
+                                       onChanged: (value) {
+                                         checkFiled();
+                                       },
+                                     ),
+
+                                   ],
+                                 ),
+                               ),
+
+
+                             ],
+                           ) ,
 
                        Container(
-                         width: 70,
+                         width: 50,
                          height: 60,
+                         child: DropdownButtonFormField(
+                           value: _selectedWval,
+                           items: _listOfWItem.map(
+                                 (e) => DropdownMenuItem(child: Text(e), value: e),
+                           ).toList(),
+                           onChanged: (val) {
+                             setState(() {
+                               _selectedWval = val as String;
 
-                         child:   Column(
+                                if(_selectedWval == "kg"){
+                                  stController.clear();
+                                  lbController.clear();
+                                }else if(_selectedWval == "lb"){
+                                  stController.clear();
+                                  lbController.clear();
+                                }else{
+                                  wtController.clear();
 
-
-                           children: [
-
-                             TextField(
-                               controller: wtController,
-
-                               decoration: const InputDecoration(
-                                 labelText: "Weight",
-                                 labelStyle: TextStyle(
-                                   fontSize: 12,
-
-                                 ) ,
-                                 contentPadding: EdgeInsets.symmetric(horizontal: 12.0),
-                               ),
-                               keyboardType: TextInputType.number,
-                               onChanged: (value) {
-                                 checkFiled();
-                               },
-                             ),
-
-                           ],
+                                }
+                             });
+                           },
                          ),
                        ),
-
-
-
-
-                       Container(
-                           width: 50,
-                           height: 60,
-
-
-                           child:  DropdownButtonFormField(
-                               value: _selectedWval,
-                               items: _listOfWItem.map(
-                                       (e) => DropdownMenuItem(child: Text(e),value: e,)
-
-                               ).toList(),
-                               onChanged: (val){
-                                 setState(() {
-                                   _selectedWval = val as String;
-                                 });
-                               }
-                           )
-
-
-
-                       ),
-
                      ],
                    ),
+
                  ],
                ),
              ),
@@ -717,29 +816,45 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
   void checkFiled() {
+    print("function called: **************");
 
-    // print value
-    print("agecontroler: ${age.text} , ftController: ${ftController.text} , inController: ${inController.text} , wtController: ${wtController.text}");
-    if (age.text.isNotEmpty &&
-        ftController.text.isNotEmpty &&
-        inController.text.isNotEmpty &&
-        wtController.text.isNotEmpty) {
+    st = double.parse(stController.text);
+    lb = double.parse(lbController.text);
+    heightInCmValue = double.parse(heightInCm.text);
+    ageValue = double.parse(age.text);
 
-            ageValue = double.parse(age.text);
-            heightFtValue = double.parse(ftController.text);
-            heightInValue = double.parse(inController.text);
-            weightValue = double.parse(wtController.text);
-            calculateBMI();
+    print("heightInCmValue: ${ double.parse(ftController.text)}");
+
+
+
+    if (st != 0.0 && lb != 0.0) {
+      var stToKg = st * 6.35029;
+      var lbToKg = lb * 0.453592;
+      weightValue = stToKg + lbToKg;
+    } else {
+      weightValue = double.parse(wtController.text);
     }
+
+    if (heightInCmValue != 0.0) {
+      var cmToMeter = heightInCmValue / 100;
+      heightInInches = cmToMeter * 39.3701;
+      totalHighetInMeeter = cmToMeter;
+    } else {
+      heightFtValue = double.parse(ftController.text);
+      heightInValue = double.parse(inController.text);
+      feetInmeeter = heightFtValue * 0.3048;
+      inchesInmeeter = heightInValue * 0.0254;
+      totalHighetInMeeter = feetInmeeter + inchesInmeeter;
+      heightInInches = (heightFtValue * 12) + heightInValue;
+    }
+
+    calculateBMI(); // Move the calculation outside the conditional blocks
   }
 
 
 
-  void WeightRangeBasedOnBmi(double min , double max){
 
-     var feetInmeeter = heightFtValue * 0.3048;
-      var inchesInmeeter = heightInValue * 0.0254;
-      var totalHighetInMeeter = feetInmeeter + inchesInmeeter;
+  void WeightRangeBasedOnBmi(double min , double max){
 
       //get one decimal value
       totalHighetInMeeter = double.parse(totalHighetInMeeter.toStringAsFixed(1));
@@ -804,12 +919,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // Method to calculate BMI
   void calculateBMI() {
-    double heightInInches = (heightFtValue * 12) + heightInValue;
+    print("check calculateBMI called--------------");
     double meeter = heightInInches / 39.3701;
     bmi = weightValue / (meeter * meeter);
-
-
-
 
 
 
