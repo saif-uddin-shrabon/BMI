@@ -164,7 +164,79 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 
-                       _slectedVal == "ft" ? Row(
+                       // Feet container
+
+                       Container(
+                         width: 50,
+                         height: 40,
+                         child: Column(
+
+                           children: [
+                             Container(
+                               height: 14.0,
+                               alignment: Alignment.centerRight,
+                               child: Text(
+                                 "'",
+                                 style: TextStyle(fontSize: 24.0),
+                               ),
+                             ),
+                             Expanded(
+                               child: TextField(
+                                 controller: ftController,
+                                 keyboardType: TextInputType.number,
+                                 onChanged: (value) {
+                                   checkFiled();
+                                 },
+                               ),
+                             ),
+                           ],
+                         ),
+                       ),
+
+                       // incich container
+                       Container(
+                         width: 50,
+                         height: 40,
+
+                         child:   Column(
+
+                           children: [
+
+                             Container(
+                               height: 14.0,
+                               alignment: Alignment.centerRight,
+                               child: Text(
+                                 "''",
+                                 style: TextStyle(fontSize: 24.0),
+                               ),
+                             ),
+
+
+
+                             Expanded(
+                               child: TextField(
+                                 controller: inController,
+
+
+                                 keyboardType: TextInputType.number,
+                                 onChanged: (value) {
+                                   checkFiled();
+                                 },
+                               ),
+                             ),
+
+                           ],
+                         ),
+                       ),
+
+
+
+
+
+
+                       /*
+                       _slectedVal == "ft" ?
+                       Row(
                          children: [
                            
                            // incich container
@@ -173,7 +245,7 @@ class _MyHomePageState extends State<MyHomePage> {
                              height: 40,
                              // margin: EdgeInsets.only(left: 10.0),
                              margin: EdgeInsets.only(left: 16.0),
-         child:   Column(
+                                child:   Column(
 
                                children: [
 
@@ -237,6 +309,7 @@ class _MyHomePageState extends State<MyHomePage> {
                            ],
                          ),
                        ) ,
+                       */
 
 
                        // select ft or cm
@@ -251,17 +324,19 @@ class _MyHomePageState extends State<MyHomePage> {
                            onChanged: (val) {
                              setState(() {
                                _slectedVal = val as String;
-                               if(_slectedVal == "ft"){
-                                 heightInCm.clear();
-
-                                }else{
-                                 ftController.clear();
-                                 inController.clear();
-                               }
+                               // if(_slectedVal == "ft"){
+                               //   heightInCm.clear();
+                               //
+                               //  }else{
+                               //   ftController.clear();
+                               //   inController.clear();
+                               // }
                              });
                            },
                          ),
                        ),
+
+
 
                      ],
                    ),
@@ -301,113 +376,138 @@ class _MyHomePageState extends State<MyHomePage> {
                            ],
                          ),
                        ),
-
-                       // Conditionally render based on _selectedWval value
-                       if (_selectedWval == "kg")
-                         Container(
-                           width: 70,
-                           height: 60,
-                           child: Column(
-                             children: [
-                               TextField(
-                                 controller: wtController,
-                                 decoration: const InputDecoration(
-                                   labelText: "Weight",
-                                   labelStyle: TextStyle(
-                                     fontSize: 12,
-                                   ),
-                                   contentPadding: EdgeInsets.symmetric(horizontal: 12.0),
+                       Container(
+                         width: 70,
+                         height: 60,
+                         child: Column(
+                           children: [
+                             TextField(
+                               controller: wtController,
+                               decoration: const InputDecoration(
+                                 labelText: "Weight",
+                                 labelStyle: TextStyle(
+                                   fontSize: 12,
                                  ),
-                                 keyboardType: TextInputType.number,
-                                 onChanged: (value) {
-                                   checkFiled();
-                                 },
+                                 contentPadding: EdgeInsets.symmetric(horizontal: 12.0),
                                ),
-                             ],
-                           ),
-                         )
-                       else if (_selectedWval == "lb")
-                         Container(
-                           width: 70,
-                           height: 60,
-                           child: Column(
-                             children: [
-                               TextField(
-                                 controller: wtController,
-                                 decoration: const InputDecoration(
-                                   labelText: "Weight",
-                                   labelStyle: TextStyle(
-                                     fontSize: 12,
-                                   ),
-                                   contentPadding: EdgeInsets.symmetric(horizontal: 12.0),
-                                 ),
-                                 keyboardType: TextInputType.number,
-                                 onChanged: (value) {
-                                   checkFiled();
-                                 },
-                               ),
-                             ],
-                           ),
-                         )
-                       else if (_selectedWval == "st")
-                           Row(
-                             children: [
-                               Container(
-                                 width: 50,
-                                 height: 60,
-
-                                 child:   Column(
+                               keyboardType: TextInputType.number,
+                               onChanged: (value) {
+                                 checkFiled();
+                               },
+                             ),
+                           ],
+                         ),
+                       ),
 
 
-                                   children: [
-
-                                     TextField(
-                                       controller: stController,
-                                       decoration: const InputDecoration(
-                                         labelText: "st",
-                                         contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
-                                       ),
-                                       keyboardType: TextInputType.number,
-                                       // call checkFiled method when text field is changed
-                                       onChanged: (value) {
-                                         checkFiled();
-                                       },
-                                     ),
-
-                                   ],
-                                 ),
-                               ),
-
-                               Container(
-                                 width: 50,
-                                 height: 60,
-                                 margin: EdgeInsets.only(left: 15.0),
-
-                                 child:   Column(
-
-
-                                   children: [
-
-                                     TextField(
-                                       controller: lbController,
-                                       decoration: const InputDecoration(
-                                         labelText: "lb",
-                                         contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
-                                       ),
-                                       keyboardType: TextInputType.number,
-                                       // call checkFiled method when text field is changed
-                                       onChanged: (value) {
-                                         checkFiled();
-                                       },
-                                     ),
-
-                                   ],
-                                 ),
-                               ),
-
-
-                             ],
-                           ) ,
+                       // // Conditionally render based on _selectedWval value
+                       // if (_selectedWval == "kg")
+                       //   Container(
+                       //     width: 70,
+                       //     height: 60,
+                       //     child: Column(
+                       //       children: [
+                       //         TextField(
+                       //           controller: wtController,
+                       //           decoration: const InputDecoration(
+                       //             labelText: "Weight",
+                       //             labelStyle: TextStyle(
+                       //               fontSize: 12,
+                       //             ),
+                       //             contentPadding: EdgeInsets.symmetric(horizontal: 12.0),
+                       //           ),
+                       //           keyboardType: TextInputType.number,
+                       //           onChanged: (value) {
+                       //             checkFiled();
+                       //           },
+                       //         ),
+                       //       ],
+                       //     ),
+                       //   )
+                       // else if (_selectedWval == "lb")
+                       //   Container(
+                       //     width: 70,
+                       //     height: 60,
+                       //     child: Column(
+                       //       children: [
+                       //         TextField(
+                       //           controller: wtController,
+                       //           decoration: const InputDecoration(
+                       //             labelText: "Weight",
+                       //             labelStyle: TextStyle(
+                       //               fontSize: 12,
+                       //             ),
+                       //             contentPadding: EdgeInsets.symmetric(horizontal: 12.0),
+                       //           ),
+                       //           keyboardType: TextInputType.number,
+                       //           onChanged: (value) {
+                       //             checkFiled();
+                       //           },
+                       //         ),
+                       //       ],
+                       //     ),
+                       //   )
+                       // else if (_selectedWval == "st")
+                       //     Row(
+                       //       children: [
+                       //         Container(
+                       //           width: 50,
+                       //           height: 60,
+                       //
+                       //           child:   Column(
+                       //
+                       //
+                       //             children: [
+                       //
+                       //               TextField(
+                       //                 controller: stController,
+                       //                 decoration: const InputDecoration(
+                       //                   labelText: "st",
+                       //                   contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
+                       //                 ),
+                       //                 keyboardType: TextInputType.number,
+                       //                 // call checkFiled method when text field is changed
+                       //                 onChanged: (value) {
+                       //                   checkFiled();
+                       //                 },
+                       //               ),
+                       //
+                       //             ],
+                       //           ),
+                       //         ),
+                       //
+                       //
+                       //         Container(
+                       //           width: 50,
+                       //           height: 60,
+                       //           margin: EdgeInsets.only(left: 15.0),
+                       //
+                       //           child:   Column(
+                       //
+                       //
+                       //             children: [
+                       //
+                       //               TextField(
+                       //                 controller: lbController,
+                       //                 decoration: const InputDecoration(
+                       //                   labelText: "lb",
+                       //                   contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
+                       //                 ),
+                       //                 keyboardType: TextInputType.number,
+                       //                 // call checkFiled method when text field is changed
+                       //                 onChanged: (value) {
+                       //                   checkFiled();
+                       //                 },
+                       //               ),
+                       //
+                       //             ],
+                       //           ),
+                       //         ),
+                       //
+                       //
+                       //
+                       //       ],
+                       //     ) ,
 
                        Container(
                          width: 50,
@@ -506,7 +606,7 @@ class _MyHomePageState extends State<MyHomePage> {
                        color: Colors.white,
                        // add result + 30 to show the pointer on the gauge or null
                        // value:  double.parse(result) + 30 ?? 0,
-                       value: rangeValue ?? 0,
+                       value: rangeValue,
 
 
                        markerHeight: 15,
@@ -753,6 +853,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
              ),
 
+
             Divider(
               color: Colors.black,
               thickness: 1.0,
@@ -814,6 +915,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  /*
 
   void checkFiled() {
     print("function called: **************");
@@ -850,11 +952,38 @@ class _MyHomePageState extends State<MyHomePage> {
 
     calculateBMI(); // Move the calculation outside the conditional blocks
   }
+*/
 
+
+  void checkFiled() {
+
+    ageValue = double.parse(age.text);
+
+    // print value
+    print("agecontroler: ${age.text} , ftController: ${ftController.text} , inController: ${inController.text} , wtController: ${wtController.text}");
+    if (age.text.isNotEmpty &&
+        ftController.text.isNotEmpty &&
+        inController.text.isNotEmpty &&
+        wtController.text.isNotEmpty) {
+
+      ageValue = double.parse(age.text);
+      heightFtValue = double.parse(ftController.text);
+      heightInValue = double.parse(inController.text);
+      weightValue = double.parse(wtController.text);
+      calculateBMI();
+    }
+  }
 
 
 
   void WeightRangeBasedOnBmi(double min , double max){
+
+    heightFtValue = double.parse(ftController.text);
+    heightInValue = double.parse(inController.text);
+    feetInmeeter = heightFtValue * 0.3048;
+    inchesInmeeter = heightInValue * 0.0254;
+    totalHighetInMeeter = feetInmeeter + inchesInmeeter;
+    heightInInches = (heightFtValue * 12) + heightInValue;
 
       //get one decimal value
       totalHighetInMeeter = double.parse(totalHighetInMeeter.toStringAsFixed(1));
@@ -917,11 +1046,17 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 
+
   // Method to calculate BMI
   void calculateBMI() {
-    print("check calculateBMI called--------------");
+    double heightInInches = (heightFtValue * 12) + heightInValue;
     double meeter = heightInInches / 39.3701;
     bmi = weightValue / (meeter * meeter);
+
+
+
+
+
 
 
 
@@ -929,7 +1064,32 @@ class _MyHomePageState extends State<MyHomePage> {
     // state update
     setState(() {
       result = bmi.toStringAsFixed(1);
-      rangeValue = (bmi + 30);
+      if(bmi < 18.5){
+        if(bmi < 12) {
+          rangeValue = bmi+12;
+        }else if(bmi > 35){
+          rangeValue = 34.5;
+        }else{
+          rangeValue = bmi;
+        }
+      }else if(bmi >= 18.5 && bmi <= 24.9){
+        if(bmi < 35) {
+          rangeValue = bmi+35;
+        }else if(bmi > 60){
+          rangeValue = 24.8;
+        }else{
+          rangeValue = bmi;
+        }
+      }else if(bmi >= 25.0 && bmi <= 29.9){
+        if(bmi < 60) {
+          rangeValue = bmi+60;
+        }else if(bmi > 85){
+          rangeValue = 29.8;
+        }else{
+          rangeValue = bmi;
+        }
+      }
+
       getBMICategory();
 
       selectedIcon(heightInInches);
