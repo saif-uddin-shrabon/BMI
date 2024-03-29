@@ -12,9 +12,8 @@ This Flutter app calculates your Body Mass Index (BMI) based on your height and 
 
 - **Customization**:Adapt the app to your needs with customizable options.
 
-## Screenshots and Screen Record GIF
+## Mobile App Screenshots 
 
-### Mobile Application
 <div align="center">
   <img src="https://github.com/saif-uddin-shrabon/PhotoLibrary/blob/main/BMI/splashscreen.jpg?raw=true" alt="Screenshot 1" width="300"/>
   <img src="https://github.com/saif-uddin-shrabon/PhotoLibrary/blob/main/BMI/home.jpg?raw=true" alt="Screenshot 2" width="300"/>
@@ -29,7 +28,7 @@ To begin utilizing BMI Calculator, follow these straightforward steps:
 1. **Clone the Repository**: Clone this repository to your local machine using Git.
 
    ```sh
-   git clone https://github.com/your_username/BMI_CALCULATOR.git
+   https://github.com/saif-uddin-shrabon/BMI.git
 
 
 
